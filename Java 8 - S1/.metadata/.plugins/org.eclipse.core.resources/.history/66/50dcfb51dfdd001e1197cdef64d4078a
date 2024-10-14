@@ -1,0 +1,126 @@
+package com;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+class Person {
+    private int id;
+    private String name;
+    private int age;
+    private double salary;
+
+    public Person(int id, String name, int age, double salary) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+
+    // Getters for all fields
+
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	@Override
+    public String toString() {
+        return "Person [id=" + id + ", name=" + name + ", age=" + age + ", salary=" + salary + "]";
+    }
+}
+
+public class major {
+    public static void main(String[] args) {
+        Set<Person> persons = new HashSet<>();
+        persons.add(new Person(1, "Jerry", 12, 999.0));
+        persons.add(new Person(2, "Smith", 22, 2999.0));
+        persons.add(new Person(3, "Popeye", 21, 5999.0));
+        persons.add(new Person(4, "Jones", 22, 6999.0));
+        persons.add(new Person(5, "John", 32, 1999.0));
+        persons.add(new Person(6, "Tom", 42, 3999.0));
+
+        // 1. Print all the persons details using the Streams and Method Reference features.
+        System.out.println("1. Print all the persons details:");
+        persons.forEach(System.out::println);
+
+        // 2. Print all the persons details by sorting the id in ascending order using Comparable and Streams.
+        System.out.println("\n2. Print all the persons details by sorting the id in ascending order:");
+        persons.stream()
+                .sorted((p1, p2) -> Integer.compare(p1.getId(), p2.getId()))
+                .forEach(System.out::println);
+
+        // 3. Print all the persons details by sorting the name in ascending order using Comparator and Streams.
+        System.out.println("\n3. Print all the persons details by sorting the name in ascending order:");
+        persons.stream()
+                .sorted((p1, p2) -> p1.getName().compareTo(p2.getName()))
+                .forEach(System.out::println);
+
+        // 4. Print all the persons details by sorting the names in descending order using Comparator and Streams.
+        System.out.println("\n4. Print all the persons details by sorting the names in descending order:");
+        persons.stream()
+                .sorted((p1, p2) -> p2.getName().compareTo(p1.getName()))
+                .forEach(System.out::println);
+
+        // 5. Print all the persons details whose Name start with J using Streams.
+        System.out.println("\n5. Print all the persons details whose Name start with J:");
+        persons.stream()
+                .filter(p -> p.getName().startsWith("J"))
+                .forEach(System.out::println);
+
+        // 6. Print the count number of persons using Streams.
+        System.out.println("\n6. Number of persons: " + persons.size());
+
+        // 7. Print the Max salary among all persons using Streams.
+        System.out.println("\n7. Max salary among all persons: " +
+                persons.stream().mapToDouble(Person::getSalary).max().orElse(0));
+
+        // 8. Print the Min salary among all persons using Streams.
+        System.out.println("\n8. Min salary among all persons: " +
+                persons.stream().mapToDouble(Person::getSalary).min().orElse(0));
+
+        // 9. Print the average of all salaries using Streams.
+        System.out.println("\n9. Average salary of all persons: " +
+                persons.stream().mapToDouble(Person::getSalary).average().orElse(0));
+
+        // 10. Print the sum of all salaries using Streams.
+        System.out.println("\n10. Sum of all salaries: " +
+                persons.stream().mapToDouble(Person::getSalary).sum());
+
+        // 11. Print the First Person whose Name start with J using Streams - filter and findFirst method.
+        System.out.println("\n11. First person whose Name starts with J: " +
+                persons.stream().filter(p -> p.getName().startsWith("J")).findFirst().orElse(null));
+
+        // 12. Check whether all the persons age is greater than 10 using Streams – allMatch method.
+        System.out.println("\n12. All persons age greater than 10? " +
+                persons.stream().allMatch(p -> p.getAge() > 10));
+    }
+}
+

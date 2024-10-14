@@ -1,0 +1,13 @@
+INDEX VERSION 1.134+/Users/sureshpandit/Desktop/Practice Exercises/Java 8 - S1/.metadata/.plugins/org.eclipse.jdt.core
+2616140101.index
+1977696361.index
+3951416778.index
+2067449947.index
+1865797976.index
+3974631891.index
+326387041.index
+205387981.index
+93041894.index
+1921811568.index
+2625824092.index
+3233867677.index

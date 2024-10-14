@@ -1,0 +1,92 @@
+package com;
+
+import java.util.*;
+import java.util.function.Predicate;
+
+class Stock {
+    private String symbol;
+    private double price;
+    private double units;
+
+    public Stock(String symbol, double price, double units) {
+        this.symbol = symbol;
+        this.price = price;
+        this.units = units;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public double getUnits() {
+        return units;
+    }
+
+    @Override
+    public String toString() {
+        return "Stock [symbol=" + symbol + ", price=" + price + ", units=" + units + "]";
+    }
+}
+
+public class StockFilters {
+    public static List<Stock> bySymbol(List<Stock> list, String symbol) {
+        List<Stock> filteredData = new ArrayList<>();
+        for (Stock stock : list) {
+            if (stock.getSymbol().equals(symbol)) {
+                filteredData.add(stock);
+            }
+        }
+        return filteredData;
+    }
+
+    public static List<Stock> byPriceAbove(List<Stock> list, double price) {
+        List<Stock> filteredData = new ArrayList<>();
+        for (Stock stock : list) {
+            if (stock.getPrice() > price) {
+                filteredData.add(stock);
+            }
+        }
+        return filteredData;
+    }
+
+    public static List<Stock> filter(List<Stock> list, Predicate<Stock> p) {
+        List<Stock> filteredData = new ArrayList<>();
+        for (Stock stock : list) {
+            if (p.test(stock)) {
+                filteredData.add(stock);
+            }
+        }
+        return filteredData;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Stock> stocks = new ArrayList<>();
+        stocks.add(new Stock("AAPL", 318.65, 10.0));
+        stocks.add(new Stock("MSFT", 166.86, 45.0));
+        stocks.add(new Stock("Google", 99.0, 12.5));
+        stocks.add(new Stock("AMZ", 1866.74, 45.0));
+        stocks.add(new Stock("G00GL", 1480.2, 3.5));
+        stocks.add(new Stock("AAPL", 318.65, 8.0));
+        stocks.add(new Stock("AMZ", 1866.74, 9.0));
+
+        // 1. Print all stocks details using forEach and Method Reference
+        System.out.println("All stocks details:");
+        stocks.forEach(System.out::println);
+
+        // 2. Print all stocks details whose symbol is AMZ using generic filter method
+        System.out.println("\nStocks with symbol AMZ:");
+        List<Stock> amzStocks = StockFilters.filter(stocks, stock -> stock.getSymbol().equals("AMZ"));
+        amzStocks.forEach(System.out::println);
+
+        // 3. Print all stocks details whose price is above 300 using generic filter method
+        System.out.println("\nStocks with price above 300:");
+        List<Stock> highPriceStocks = StockFilters.filter(stocks, stock -> stock.getPrice() > 300);
+        highPriceStocks.forEach(System.out::println);
+    }
+}
